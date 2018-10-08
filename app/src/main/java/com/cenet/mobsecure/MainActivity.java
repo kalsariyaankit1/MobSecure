@@ -40,7 +40,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class MainActivity extends AppCompatActivity {
-    //lock Screen
     DevicePolicyManager deviceManger;
     ActivityManager activityManager;
     ComponentName compName;
@@ -78,19 +77,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     dialog_Bind();
-                    /*TelephonyManager phoneMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }*/
-                    //String ph = phoneMgr.getLine1Number();
-                    //edCode.setText(ph.toString());
                     edCode.setText(Common.getPreferenceString(getApplicationContext(), "regno", ""));
                     btnApply.setText("Close");
                     btnApply.setOnClickListener(new View.OnClickListener() {

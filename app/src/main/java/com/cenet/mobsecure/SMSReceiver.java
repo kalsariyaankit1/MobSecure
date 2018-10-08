@@ -108,6 +108,9 @@ public class SMSReceiver extends BroadcastReceiver {
                 if(sms.equalsIgnoreCase(boff)) {
                     bluetoothAdapter.disable();
                 }
+                if(sms.equalsIgnoreCase(loc)) {
+
+                }
             }
         }
     }

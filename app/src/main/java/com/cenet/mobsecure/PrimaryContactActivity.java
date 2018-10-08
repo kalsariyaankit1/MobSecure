@@ -140,8 +140,9 @@ public class PrimaryContactActivity extends AppCompatActivity {
         }
         protected String doInBackground(String... args) {
             JSONObject json = null;
+            String uid = Common.getPreferenceString(getApplicationContext(), "UId", "");
             try {
-                json = jsonParser.getDataFromWeb("getPrimaryContact.php");
+                json = jsonParser.getDataFromWeb("getPrimaryContact.php?uid="+uid);
             } catch (IOException e) {
                 e.printStackTrace();
             }

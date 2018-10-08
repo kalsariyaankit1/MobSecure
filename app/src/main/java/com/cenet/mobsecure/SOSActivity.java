@@ -8,21 +8,30 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SOSActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     JSONParser jsonParser = new JSONParser();
     private ProgressDialog pDialog;
+    RecyclerView recyclerView;
+    JSONArray jsonArray = null;
+    List<Contacts> contactsList = null;
+
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     @Override
@@ -30,6 +39,11 @@ public class SOSActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSOS);
+
+        contactsList = new ArrayList<Contacts>();
+
+        new GetAllSOS().execute();
 
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +118,61 @@ public class SOSActivity extends AppCompatActivity {
         }
         protected void onPostExecute(String file_url) {
             pDialog.dismiss();
+            contactsList.clear();
+            new GetAllSOS().execute();
+        }
+
+    }
+    class GetAllSOS extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(SOSActivity.this);
+            pDialog.setMessage("Creating Items..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        protected String doInBackground(String... args) {
+            JSONObject json = null;
+            String uid = Common.getPreferenceString(getApplicationContext(), "UId", "");
+            try {
+                json = jsonParser.getDataFromWeb("getSOSContact.php?uid="+uid);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    jsonArray = json.getJSONArray("product");
+                    for(int i=0;i<jsonArray.length();i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Contacts c = new Contacts();
+                        c.setId(Integer.parseInt(jsonObject.getString("Id")));
+                        c.setUId(Integer.parseInt(jsonObject.getString("UId")));
+                        c.setContact(jsonObject.getString("PContact"));
+                        c.setCName(jsonObject.getString("PName"));
+                        contactsList.add(c);
+                    }
+                } else {
+                    // failed to create product
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String file_url) {
+            pDialog.dismiss();
+            ContactAdapter contactAdapter = new ContactAdapter(getApplicationContext(),contactsList,recyclerView);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(linearLayoutManager);
+            //contactAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(contactAdapter);
         }
 
     }
