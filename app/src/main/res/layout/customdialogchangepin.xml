@@ -4,7 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    android:padding="15dp">
+    android:padding="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_margin="0dp"
+        >
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="Change PIN"
+            android:layout_marginBottom="10dp"
+            android:textColor="#fff"
+            android:textSize="28sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,17 +34,17 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="Set Pin :" />
-
         <EditText
             android:id="@+id/et_pin"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="6dp"
             android:layout_width="0dp"
-            android:hint="****"
+            android:hint="Enter PIN"
             android:inputType="number"
+            android:background="@drawable/edittext"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:imeOptions="actionDone"
@@ -35,20 +57,21 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="Confirm Pin : " />
-
         <EditText
             android:id="@+id/et_cpin"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_width="0dp"
-            android:hint="****"
-            android:inputType="number"
-            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_height="match_parent"
             android:layout_weight=".7"
             android:imeOptions="actionDone"
+            android:inputType="number"
+            android:layout_margin="12dp"
+            android:hint="Confirm PIN"
+            android:background="@drawable/edittext"
             android:singleLine="true" />
     </LinearLayout>
     <LinearLayout
@@ -57,9 +80,19 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SUBMIT"
+            android:layout_gravity="left"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="24dp"
+
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textSize="16dp"
             android:id="@+id/btnSubmit"/>
     </LinearLayout>
 </LinearLayout>

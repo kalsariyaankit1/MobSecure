@@ -2,6 +2,8 @@ package com.cenet.mobsecure;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -10,6 +12,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
@@ -93,6 +96,19 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
                 if(sms.equalsIgnoreCase(rout)) {
                     //Ring out loud
+                    if(audioManager.getRingerMode()==1) {
+                        audioManager.setRingerMode(2);
+                        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        Notification notification = new Notification();
+                        notification.sound = Uri.parse("android.resource://com.cenet.mobsecure/raw/siren");
+                        notificationManager.notify(0,notification);
+                    } else {
+                        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        Notification notification = new Notification();
+                        notification.sound = Uri.parse("android.resource://com.cenet.mobsecure/raw/siren");
+                        notificationManager.notify(0,notification);
+                        notificationManager.notify(1,notification);
+                    }
                 }
                 if(sms.equalsIgnoreCase(don)) {
 

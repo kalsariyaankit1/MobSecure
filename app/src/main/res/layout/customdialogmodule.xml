@@ -4,7 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    android:padding="15dp">
+    android:padding="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_margin="0dp"
+        >
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="Set Code"
+            android:layout_marginBottom="10dp"
+            android:textColor="#fff"
+            android:textSize="28sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,20 +34,20 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:text="Enter Code :" />
-
         <EditText
             android:id="@+id/et_Code"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
             android:layout_width="0dp"
-            android:inputType="textPhonetic"
+            android:hint="Enter Code"
+            android:background="@drawable/edittext"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:imeOptions="actionDone"
-            android:singleLine="true" />
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -34,9 +56,19 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="APPLY"
+            android:layout_gravity="left"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="30dp"
+
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif"
+            android:text="Apply"
+            android:textColor="#fff"
+            android:textSize="16dp"
             android:id="@+id/btnApply"/>
     </LinearLayout>
 </LinearLayout>
