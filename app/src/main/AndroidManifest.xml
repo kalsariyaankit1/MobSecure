@@ -61,7 +61,8 @@
         <activity android:name=".PrimaryContactActivity" />
         <activity android:name=".SOSActivity" />
         <activity android:name=".TrackRecordActivity" />
-        <activity android:name=".SenderActivity"></activity>
+        <activity android:name=".SenderActivity" />
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>
