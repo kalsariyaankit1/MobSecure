@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     ComponentName compName;
     JSONParser jsonParser = new JSONParser();
     static final int RESULT_ENABLE = 1;
-
+    public int imagelist[] = {R.drawable.phone,R.drawable.primary,R.drawable.sos,R.drawable.normal,R.drawable.sil,R.drawable.location,R.drawable.won,R.drawable.woff,R.drawable.bon,R.drawable.boff,R.drawable.ringloud,R.drawable.lockscreen,R.drawable.changepin,R.drawable.changephone,R.drawable.don,R.drawable.doff,R.drawable.simserial,R.drawable.track};
     public static String[] modList = {"Enter Cell Number", "Primary Numbers", "SOS Contact", "Normal", "Silent", "Location", "Wifi ON", "Wifi OFF", "Blutooth On", "Blutooth Off", "Ring Out Loud", "Lock Screen", "Change Pin", "Change Pin Recovery Number", "Data On", "Data OFF", "Sim Serial Key", "Show Track Records"};
 
     GridView gridView;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         gridView = (GridView) findViewById(R.id.grid);
-        gridView.setAdapter(new CustomGridAdapter(getApplicationContext(), modList));
+        gridView.setAdapter(new CustomGridAdapter(getApplicationContext(), modList, imagelist));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -343,11 +343,12 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
 
-                    edCode.setText(telephonyManager.getDeviceId().toString());
+                    edCode.setText(telephonyManager.getSimSerialNumber());
                     btnApply.setText("Close");
                     btnApply.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Common.setPreferenceString(getApplicationContext(), "sim", edCode.getText().toString());
                             dialog.dismiss();
                         }
                     });
@@ -401,6 +402,9 @@ public class MainActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface arg0, int arg1) {
+                                        String uid = Common.getPreferenceString(getApplicationContext(), "UId", "");
+                                        String[] arr = {uid.toString()};
+                                        new DeleteUser().execute(arr);
                                         Common.clearPre(getApplicationContext());
                                         Intent i = new Intent(MainActivity.this, RegisterActivity.class);
                                         startActivity(i);
@@ -473,6 +477,46 @@ public class MainActivity extends AppCompatActivity {
         }
         protected void onPostExecute(String file_url) {
             pDialog.dismiss();
+        }
+
+    }
+    class DeleteUser extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Creating Items..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        protected String doInBackground(String... args) {
+            JSONObject json = null;
+            String uid = args[0];
+            try {
+                json = jsonParser.getDataFromWeb("DeleteUser.php?uid="+ uid);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    // successfully created product
+                    String successack = "Product inserted successfully";
+                    Log.d("Success Response", successack );
+                } else {
+                    // failed to create product
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String file_url) {
         }
 
     }

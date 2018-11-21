@@ -142,7 +142,7 @@ public class VerifyActivity extends AppCompatActivity {
             return null;
         }
         protected void onPostExecute(String file_url) {
-            pDialog.dismiss();
+            //pDialog.dismiss();
         }
 
     }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +18,12 @@ import org.w3c.dom.Text;
 public class CustomGridAdapter extends BaseAdapter {
     Context context;
     String[] modList;
+    int[] imagelist;
     LayoutInflater inflater;
-    CustomGridAdapter(Context context,String[] modList){
+    CustomGridAdapter(Context context,String[] modList,int[] imagelist){
         this.context = context;
         this.modList = modList;
+        this.imagelist = imagelist;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
@@ -39,14 +42,18 @@ public class CustomGridAdapter extends BaseAdapter {
     }
     public class Holder {
         TextView txtTitle;
+        ImageView imageView;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
         View rowView = inflater.inflate(R.layout.grid_item,null);
         holder.txtTitle = (TextView) rowView.findViewById(R.id.txtTitle);
+        holder.imageView = (ImageView) rowView.findViewById(R.id.imagelogo);
 
         holder.txtTitle.setText(modList[position].toString());
+        holder.imageView.setImageResource(imagelist[position]);
+
         return rowView;
     }
 }

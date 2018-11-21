@@ -47,9 +47,6 @@ public class PrimaryContactActivity extends AppCompatActivity {
 
         new GetAllPrimary().execute();
 
-
-
-
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

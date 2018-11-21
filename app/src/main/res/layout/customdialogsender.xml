@@ -21,7 +21,7 @@
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="0dp"
-            android:inputType="textPhonetic"
+            android:inputType="phone"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:imeOptions="actionDone"
